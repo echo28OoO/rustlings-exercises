@@ -10,7 +10,7 @@
 //
 // Make the code compile and the tests pass.
 
-// I AM NOT DONE
+
 
 use std::collections::HashMap;
 
@@ -34,7 +34,9 @@ fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
 fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
     // map is a hashmap with String keys and Progress values.
     // map = { "variables1": Complete, "from_str": None, ... }
-    todo!();
+    // todo!();
+    // map.iter().filter(|v| *v.1 == value).count()
+    map.iter().fold(0, |acc, (_, v)| { if v == &value {acc + 1} else {acc}})
 }
 
 fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
@@ -53,7 +55,17 @@ fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Pr
     // collection is a slice of hashmaps.
     // collection = [{ "variables1": Complete, "from_str": None, ... },
     //     { "variables2": Complete, ... }, ... ]
-    todo!();
+    // let mut my_map1 = collection[0].clone();
+    // let mut my_map2 = collection[1].clone();
+	// // 调用extend方法，将my_map1转换为一个迭代器，并将其键值对添加到my_map2中
+    // my_map2.extend(my_map1.into_iter());
+	// // 与上一个相同
+    // let count11 = my_map2
+    //     .iter()
+    //     .filter(|v| *v.1 == Progress::Complete)
+    //     .count();
+    // count11
+    collection.iter().fold(0, |acc, x| acc + count_iterator(x, value))
 }
 
 #[cfg(test)]
